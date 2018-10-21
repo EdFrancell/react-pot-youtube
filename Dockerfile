@@ -2,6 +2,7 @@ FROM node:latest
 RUN mkdir /code/
 WORKDIR /code/
 COPY package.json /code/
+RUN npm config set registry http://registry.npmjs.org/
 RUN npm install
 COPY . /code/
 EXPOSE 8080
