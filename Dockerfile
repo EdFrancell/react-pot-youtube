@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:10-alpine
 RUN mkdir /code/
 WORKDIR /code/
 COPY package.json /code/
