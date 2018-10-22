@@ -14,7 +14,7 @@ class SearchBar extends Component {
           value={this.state.term}
           onChange={event => this.onInputChange(event.target.value)}
         />
-        <label>&nbsp; v45</label>
+        <label>&nbsp; v46</label>
       </div>
     );
   }
