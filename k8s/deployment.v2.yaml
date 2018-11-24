@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactapp-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: edu-reactapp
+  template:
+    metadata:
+      labels:
+        app: edu-reactapp
+    spec:
+      containers:
+      - name: reactapp-container
+        image: mycluster.icp:8500/edu/reactapp:v2
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
+            protocol: TCP
