@@ -4,20 +4,16 @@ pipeline {
         stage('Instalando dependencias') {
             steps {
                 container('nodejs') {
-                    dir("react-pot-youtube") {
-                        sh 'ls -l'
-                        //sh 'npm install'
-                    }
+                    sh 'ls -l'
+                    //sh 'npm install'
                 }
             }
         }
         stage('Construindo Imagem Docker') {
             steps {
                 container('docker') {
-                    dir("react-pot-youtube"){
-                        sh 'ls -l'
-                        //sh "docker build -t mycluster.icp:8500/default/reactapp:v${env.BUILD_NUMBER} ."
-                    }
+                    sh 'ls -l'
+                    //sh "docker build -t mycluster.icp:8500/default/reactapp:v${env.BUILD_NUMBER} ."
                 }
             }
         }
