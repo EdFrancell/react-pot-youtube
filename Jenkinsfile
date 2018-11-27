@@ -31,7 +31,7 @@ pipeline {
             steps {
                 container('kubectl') {
                     sh "kubectl create deployment reactapp-deployment --image=mycluster.icp:8500/default/reactapp:v${env.BUILD_NUMBER} -n default"
-                    sh "kubectl expose deployment deployment reactapp-deployment -n default"
+                    sh "kubectl expose deployment reactapp-deployment -n default"
                     // sh "kubectl set image deployment reactapp-deployment reactapp=mycluster.icp:8500/default/reactapp:v${env.BUILD_NUMBER} -n default"
                     // sh "kubectl rollout status deployment reactapp-deployment -n default"
                 }
