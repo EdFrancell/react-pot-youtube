@@ -5,6 +5,7 @@ pipeline {
             steps {
                 container('nodejs') {
                     dir("react-pot-youtube") {
+                        sh 'ls -l'
                         sh 'npm install'
                     }
                 }
