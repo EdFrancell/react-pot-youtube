@@ -6,7 +6,7 @@ pipeline {
                 container('nodejs') {
                     dir("react-pot-youtube") {
                         sh 'ls -l'
-                        sh 'npm install'
+                        //sh 'npm install'
                     }
                 }
             }
