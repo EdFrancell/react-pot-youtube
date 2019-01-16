@@ -1,21 +1,21 @@
 pipeline {
     agent any
     stages {
-        stage('Instalando dependencias') {
+        stage('Installing Dependences') {
             steps {
                 container('nodejs') {
                     sh 'npm install'
                 }
             }
         }
-        stage('Construindo Imagem Docker') {
+        stage('Building Docker Image') {
             steps {
                 container('docker') {
                     sh "docker build -t mycluster.icp:8500/default/reactapp:v${env.BUILD_NUMBER} ."
                 }
             }
         }
-        stage('Subindo Imagem para o ICP') {
+        stage('Pushing image to ICP Registry') {
             steps {
                 container('docker') {
                     withCredentials([usernamePassword(credentialsId: 'registry-secret',
@@ -27,13 +27,11 @@ pipeline {
                 }
             }
         }
-        stage("Delivery no ICP Dev") {
+        stage("Delivery Application on ICP") {
             steps {
                 container('kubectl') {
                     sh "kubectl create deployment reactapp-deployment --image=mycluster.icp:8500/default/reactapp:v${env.BUILD_NUMBER} -n default"
                     sh "kubectl expose deployment reactapp-deployment --name=reactapp-service --type=LoadBalancer --port=8080 -n default"
-                    // sh "kubectl set image deployment reactapp-deployment reactapp=mycluster.icp:8500/default/reactapp:v${env.BUILD_NUMBER} -n default"
-                    // sh "kubectl rollout status deployment reactapp-deployment -n default"
                 }
             }
         }
