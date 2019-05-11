@@ -21,7 +21,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'registry-secret',
                                     usernameVariable: 'USERNAME',
                                     passwordVariable: 'PASSWORD')]) {
-                        sh "docker login -u ${USERNAME} -p ${PASSWORD} master.icp.cloud:8500"
+                        sh "docker login -u ${USERNAME} -p ${PASSWORD} dcprd036036.weg.net:8500"
                         sh "docker push dcprd036036.weg.net:8500/default/reactapp:v${env.BUILD_NUMBER}"
                     }
                 }
