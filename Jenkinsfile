@@ -4,7 +4,9 @@ pipeline {
         stage('Installing Dependences') {
             steps {
                 container('nodejs') {
-                    sh 'npm install'
+                    sh 'npm config set http-proxy http://proxy.correiosnet.int:80'
+                    sh 'npm config set https-proxy http://proxy.correiosnet.int:80'
+                    sh 'npm install
                 }
             }
         }
