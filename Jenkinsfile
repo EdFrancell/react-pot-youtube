@@ -13,7 +13,7 @@ pipeline {
         stage('Building Docker Image') {
             steps {
                 container('docker') {
-                    sh "docker build -t mycluster.icp:8500/default/reactapp:v${env.BUILD_NUMBER} ."
+                    sh "docker build -t master.correios.icp:8500/default/reactapp:v${env.BUILD_NUMBER} ."
                 }
             }
         }
@@ -23,8 +23,8 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'registry-secret',
                                     usernameVariable: 'USERNAME',
                                     passwordVariable: 'PASSWORD')]) {
-                        sh "docker login -u ${USERNAME} -p ${PASSWORD} mycluster.icp:8500"
-                        sh "docker push mycluster.icp:8500/default/reactapp:v${env.BUILD_NUMBER}"
+                        sh "docker login -u ${USERNAME} -p ${PASSWORD} master.correios.icp:8500"
+                        sh "docker push master.correios.icp:8500/default/reactapp:v${env.BUILD_NUMBER}"
                     }
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
         stage("Delivery Application on ICP") {
             steps {
                 container('kubectl') {
-                    sh "kubectl create deployment reactapp-deployment --image=mycluster.icp:8500/default/reactapp:v${env.BUILD_NUMBER} -n default"
+                    sh "kubectl create deployment reactapp-deployment --image=master.correios.icp:8500/default/reactapp:v${env.BUILD_NUMBER} -n default"
                     sh "kubectl expose deployment reactapp-deployment --name=reactapp-service --type=LoadBalancer --port=8080 -n default"
                 }
             }
