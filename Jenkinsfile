@@ -30,6 +30,8 @@ pipeline {
         stage("Delivery Application on ICP") {
             steps {
                 container('kubectl') {
+                    sh "kubectl delete deployment reactapp-deployment -n default"
+                    sh "kubectl delete service reactapp-service -n default"
                     sh "kubectl create deployment reactapp-deployment --image=mycluster.icp:8500/default/reactapp:v${env.BUILD_NUMBER} -n default"
                     sh "kubectl expose deployment reactapp-deployment --name=reactapp-service --type=LoadBalancer --port=8080 -n default"
                 }
